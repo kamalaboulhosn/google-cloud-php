@@ -1,5 +1,97 @@
 # Changelog
 
+## 0.186.0
+
+<details><summary>google/cloud-ai-platform 0.7.0</summary>
+
+
+
+### Features
+
+* [AiPlatform] add ListSavedQueries rpc to aiplatform v1 dataset_service.proto ([#5358](https://github.com/googleapis/google-cloud-php/issues/5358)) ([f581e7a](https://github.com/googleapis/google-cloud-php/commit/f581e7a4b0f61bf24d18d33200cebb025d031b0c))
+
+</details>
+
+<details><summary>google/cloud-bigtable 1.16.0</summary>
+
+
+
+### Features
+
+* [Bigtable] Cloud Bigtable Undelete Table service and message proto files ([#5365](https://github.com/googleapis/google-cloud-php/issues/5365)) ([77fe750](https://github.com/googleapis/google-cloud-php/commit/77fe750d925fb98d5add6f37cbc8ef8dbf587cab))
+
+</details>
+
+<details><summary>google/cloud-dataflow 0.3.3</summary>
+
+
+
+### Documentation
+
+* [Dataflow] corrected the Dataflow job name regex ([#5369](https://github.com/googleapis/google-cloud-php/issues/5369)) ([9b30ff1](https://github.com/googleapis/google-cloud-php/commit/9b30ff1ce612975cb1e42e32954eb9d6fa89bd1f))
+
+</details>
+
+<details><summary>google/cloud-network-management 0.2.0</summary>
+
+
+
+### Features
+
+* [NetworkManagement] introduce a projects_missing_permissions field in the AbortInfo structure ([#5362](https://github.com/googleapis/google-cloud-php/issues/5362)) ([d84cd9a](https://github.com/googleapis/google-cloud-php/commit/d84cd9af4e3a02b9ae29f4e071fa1eca63be1532))
+
+</details>
+
+<details><summary>google/cloud-recommender 1.7.0</summary>
+
+
+
+### Features
+
+* [Recommender] Implement configurable recommenders and  update .bazel files ([#5363](https://github.com/googleapis/google-cloud-php/issues/5363)) ([bdba0f5](https://github.com/googleapis/google-cloud-php/commit/bdba0f58b8fe5333a54becfe224d57c55d653eb5))
+
+</details>
+
+<details><summary>google/cloud-security-private-ca 0.4.1</summary>
+
+
+
+### Miscellaneous Chores
+
+* [SecurityPrivateCa] update gapic-generator-php to v1.4.8 ([#5359](https://github.com/googleapis/google-cloud-php/issues/5359)) ([c5bc2eb](https://github.com/googleapis/google-cloud-php/commit/c5bc2eb31d9b2bd2cb25d764c9c313a3a04d67b7))
+
+</details>
+
+<details><summary>google/cloud-storage 1.28.0</summary>
+
+
+
+### Features
+
+* **Storage:** Add OLM matchesPrefix and matchesSuffix ([#5353](https://github.com/googleapis/google-cloud-php/issues/5353)) ([2be59e3](https://github.com/googleapis/google-cloud-php/commit/2be59e3ed91d5b12af1ea01b43f2c86b79b5857c))
+
+</details>
+
+<details><summary>google/cloud-talent 0.19.0</summary>
+
+
+
+### Features
+
+* [Talent] library of v4 jobs onboarded to SAM ([#5366](https://github.com/googleapis/google-cloud-php/issues/5366)) ([669f8df](https://github.com/googleapis/google-cloud-php/commit/669f8dfc6cf8b59a510b8b55181178171ac1193b))
+
+</details>
+
+<details><summary>google/cloud-vision 1.5.8</summary>
+
+
+
+### Miscellaneous Chores
+
+* fix references in phpdoc ([#5367](https://github.com/googleapis/google-cloud-php/issues/5367)) ([fe32394](https://github.com/googleapis/google-cloud-php/commit/fe32394a3945873560ccefaff18e30fa6eb4e3e0))
+
+</details>
+
 ## 0.185.0
 
 <details><summary>google/cloud-ai-platform 0.6.0</summary>

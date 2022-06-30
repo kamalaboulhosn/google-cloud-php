@@ -11,6 +11,7 @@
             "name": "google/cloud",
             "defaultService": "servicebuilder",
             "versions": [
+                "v0.186.0",
                 "v0.185.0",
                 "v0.184.0",
                 "v0.183.0",
@@ -187,6 +188,7 @@
             "name": "google/cloud-ai-platform",
             "defaultService": "aiplatform/readme",
             "versions": [
+                "v0.7.0",
                 "v0.6.0",
                 "v0.5.0",
                 "v0.4.0",
@@ -601,6 +603,7 @@
             "name": "google/cloud-bigtable",
             "defaultService": "bigtable/readme",
             "versions": [
+                "v1.16.0",
                 "v1.15.2",
                 "v1.15.1",
                 "v1.15.0",
@@ -1077,6 +1080,7 @@
             "name": "google/cloud-dataflow",
             "defaultService": "dataflow/readme",
             "versions": [
+                "v0.3.3",
                 "v0.3.2",
                 "v0.3.1",
                 "v0.3.0",
@@ -2339,6 +2343,7 @@
             "name": "google/cloud-network-management",
             "defaultService": "networkmanagement/readme",
             "versions": [
+                "v0.2.0",
                 "v0.1.6",
                 "v0.1.5",
                 "v0.1.4",
@@ -2702,6 +2707,7 @@
             "name": "google/cloud-recommender",
             "defaultService": "recommender/readme",
             "versions": [
+                "v1.7.0",
                 "v1.6.2",
                 "v1.6.1",
                 "v1.6.0",
@@ -2955,6 +2961,7 @@
             "name": "google/cloud-security-private-ca",
             "defaultService": "securityprivateca/readme",
             "versions": [
+                "v0.4.1",
                 "v0.4.0",
                 "v0.3.3",
                 "v0.3.2",
@@ -3279,6 +3286,7 @@
             "name": "google/cloud-storage",
             "defaultService": "storage/storageclient",
             "versions": [
+                "v1.28.0",
                 "v1.27.1",
                 "v1.27.0",
                 "v1.26.3",
@@ -3366,6 +3374,7 @@
             "name": "google/cloud-talent",
             "defaultService": "talent/readme",
             "versions": [
+                "v0.19.0",
                 "v0.18.0",
                 "v0.17.0",
                 "v0.16.6",
@@ -3768,6 +3777,7 @@
             "name": "google/cloud-vision",
             "defaultService": "vision/visionclient",
             "versions": [
+                "v1.5.8",
                 "v1.5.7",
                 "v1.5.6",
                 "v1.5.5",
