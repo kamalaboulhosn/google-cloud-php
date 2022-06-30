@@ -151,6 +151,24 @@ class Grpc implements ConnectionInterface
     /**
      * @param array $args
      */
+    public function batchWrite(array $args)
+    {
+        $writes = $this->pluck('writes', $args);
+        foreach ($writes as $idx => $write) {
+            $writes[$idx] = $this->serializer->decodeMessage(new Write, $write);
+        }
+
+        return $this->send([$this->firestore, 'batchWrite'], [
+            $this->pluck('database', $args),
+            $writes,
+            $this->pluck('labels', $args),
+            $this->addRequestHeaders($args)
+        ]);
+    }
+
+    /**
+     * @param array $args
+     */
     public function commit(array $args)
     {
         $writes = $this->pluck('writes', $args);

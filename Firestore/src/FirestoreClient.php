@@ -144,13 +144,13 @@ class FirestoreClient
             'scopes' => [self::FULL_CONTROL_SCOPE],
             'database' => self::DEFAULT_DATABASE,
             'hasEmulator' => (bool) $emulatorHost,
-            'emulatorHost' => $emulatorHost
+            'emulatorHost' => $emulatorHost,
         ];
 
         $this->database = $config['database'];
 
         $this->connection = new Grpc($this->configureAuthentication($config) + [
-            'projectId' => $this->projectId
+            'projectId' => $this->projectId,
         ]);
 
         $this->valueMapper = new ValueMapper(
@@ -171,6 +171,7 @@ class FirestoreClient
      * ```
      *
      * @return WriteBatch
+     * @deprecated use bulkWriter instead
      */
     public function batch()
     {
@@ -183,6 +184,41 @@ class FirestoreClient
             )
         );
     }
+
+    /**
+     * Get a Bulk Writer
+     *
+     * Creates a {@link BulkWriter} instance, used for performing multiple writes in parallel.
+     * Gradually ramps up writes as specified by the 500/50/5 rule.
+     *
+     * @see <a href=https://cloud.google.com/datastore/docs/best-practices#ramping_up_traffic>Ramping
+     *     up traffic</a>
+     *
+     * Example:
+     * ```
+     * $batch = $firestore->bulkWriter();
+     * ```
+     *
+     * @param array $options [optional] {
+     *     Configuration options
+     *
+     *     @type int $maxBatchSize Maximum number of requests per batch.
+     * }
+     * @return BulkWriter
+     */
+    public function bulkWriter(array $options = [])
+    {
+        $options += ['syncUponFlush' => true];
+        return new BulkWriter(
+            $this->connection,
+            $this->valueMapper,
+            $this->databaseName(
+                $this->projectId,
+                $this->database
+            ),
+            $options);
+    }
+
 
     /**
      * Lazily instantiate a Collection reference.
@@ -248,7 +284,7 @@ class FirestoreClient
                 ] + $options,
                 [
                     'itemsKey' => 'collectionIds',
-                    'resultLimit' => $resultLimit
+                    'resultLimit' => $resultLimit,
                 ]
             )
         );
@@ -366,9 +402,9 @@ class FirestoreClient
                 'from' => [
                     [
                         'collectionId' => $id,
-                        'allDescendants' => true
-                    ]
-                ]
+                        'allDescendants' => true,
+                    ],
+                ],
             ]
         );
     }
@@ -445,21 +481,21 @@ class FirestoreClient
             'maxRetries' => self::MAX_RETRIES,
             'begin' => [],
             'commit' => [],
-            'rollback' => []
+            'rollback' => [],
         ];
 
         $retryableErrors = [
-            AbortedException::class
+            AbortedException::class,
         ];
 
         $delayFn = function () {
             return [
                 'seconds' => 0,
-                'nanos' => 0
+                'nanos' => 0,
             ];
         };
 
-        $retryFn = function (\Exception $e) use ($retryableErrors) {
+        $retryFn = function (\Exception$e) use ($retryableErrors) {
             return in_array(get_class($e), $retryableErrors);
         };
 
@@ -480,7 +516,7 @@ class FirestoreClient
 
             $beginTransaction = $this->connection->beginTransaction(array_filter([
                 'database' => $database,
-                'retryTransaction' => $transactionId
+                'retryTransaction' => $transactionId,
             ]) + $options['begin']);
 
             $transactionId = $beginTransaction['transaction'];
@@ -497,7 +533,7 @@ class FirestoreClient
 
                 if (!$transaction->writer()->isEmpty()) {
                     $transaction->writer()->commit([
-                        'transaction' => $transactionId
+                        'transaction' => $transactionId,
                     ] + $options['commit']);
                 } else {
                     // trigger rollback if no writes exist.
@@ -505,14 +541,14 @@ class FirestoreClient
                 }
 
                 return $res;
-            } catch (\Exception $e) {
+            } catch (\Exception$e) {
                 $transaction->writer()->rollback($options['rollback']);
 
                 throw $e;
             }
         }, [
             $callable,
-            $options
+            $options,
         ]);
     }
 
