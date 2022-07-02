@@ -164,13 +164,17 @@ class BulkWriter
         if (is_null($options) || $options instanceof string) {
             // convert to transaction id
             $this->transaction = $options;
-            $this->options = [];
+            $options = [];
         } else {
             // no transaction provided
             $this->transaction = null;
         }
-        $this->maxBatchSize = $this->pluck('maxBatchSize', $options, 20);
-        $this->greedilySend = $this->pluck('greedilySend', $options, false);
+        $options += [
+            'maxBatchSize' => 20,
+            'greedilySend' => false,
+        ];
+        $this->maxBatchSize = $this->pluck('maxBatchSize', $options);
+        $this->greedilySend = $this->pluck('greedilySend', $options);
         $this->finalResponse = [
             'write_results' => [],
             'status' => [],
@@ -606,8 +610,6 @@ class BulkWriter
         }
         return $writesBatchIds;
     }
-
-
 
     /**
      * Close thebulk writer instance for further writes
@@ -1200,7 +1202,7 @@ class BulkWriter
      * @param DocumentReference|string $document The document to target.
      * @throws \InvalidArgumentException If document is not unique.
      */
-    private function checkWriterConditions(DocumentReference $document)
+    private function checkWriterConditions($document)
     {
         if ($this->closed) {
             throw new \InvalidArgumentException('firestore: BulkWriter has been closed');
@@ -1209,15 +1211,17 @@ class BulkWriter
             throw new \InvalidArgumentException('firestore: BulkWriter has been initialized with transactionId');
         }
 
-//TODO: check if this is a requirement for WriteBatch as well?
-
-        if (is_null($document) || !($document instanceof DocumentReference)) {
+        if (is_null($document)) {
             throw new \InvalidArgumentException('firestore: nil document contents');
         }
-        if (in_array($document->id(), $this->unique_documents)) {
-            throw new \InvalidArgumentException('firestore: bulkwriter: received duplicate mutations for path: ' . $document->path());
+        if ($document instanceof DocumentReference) {
+            $document = $document->name();
         }
-        $this->unique_documents[] = $document->name();
+        if (in_array($document, $this->unique_documents)) {
+            //TODO: check if this is a requirement for WriteBatch as well?
+            throw new \InvalidArgumentException('firestore: bulkwriter: received duplicate mutations for path: ' . $document);
+        }
+        $this->unique_documents[] = $document;
     }
 
     private function applyJitter(int $backoffMs)

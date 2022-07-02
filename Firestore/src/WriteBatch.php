@@ -18,29 +18,35 @@
 namespace Google\Cloud\Firestore;
 
 if (false) {
-    /**
-     * Enqueue and write multiple mutations to Cloud Firestore.
-     *
-     * This class may be used directly for multiple non-transactional writes. To
-     * run changes in a transaction (with automatic retry/rollback on failure),
-     * use {@see Google\Cloud\Firestore\Transaction}. Single modifications can be
-     * made using the various methods on {@see Google\Cloud\Firestore\DocumentReference}.
-     *
-     * Example:
-     * ```
-     * use Google\Cloud\Firestore\FirestoreClient;
-     *
-     * $firestore = new FirestoreClient();
-     * $batch = $firestore->batch();
-     * ```
-     * This class is deprecated. Use  {@see Google\Cloud\Firestore\BulkWriter} instead.
-     * @deprecated
-     */
+/**
+ * Enqueue and write multiple mutations to Cloud Firestore.
+ *
+ * This class may be used directly for multiple non-transactional writes. To
+ * run changes in a transaction (with automatic retry/rollback on failure),
+ * use {@see Google\Cloud\Firestore\Transaction}. Single modifications can be
+ * made using the various methods on {@see Google\Cloud\Firestore\DocumentReference}.
+ *
+ * Example:
+ * ```
+ * use Google\Cloud\Firestore\FirestoreClient;
+ *
+ * $firestore = new FirestoreClient();
+ * $batch = $firestore->batch();
+ * ```
+ * This class is deprecated. Use  {@see Google\Cloud\Firestore\BulkWriter} instead.
+ * @deprecated
+ */
     class WriteBatch
     {}
 }
-class_alias(WriteBatch::class, BulkWriter::class);
-class_exists(Database\BulkWriter::class);
-@trigger_error('Google\Cloud\Firestore\WriteBatch is deprecated and will be removed in the next major release. Use Google\Cloud\Firestore\BulkWriter instead', E_USER_DEPRECATED);
 
-// TODO: check if users see deprecation notice if they use a WriteBatch ->flush()
+// should return true
+class_exists(BulkWriter::class);
+// class_alias(WriteBatch::class, BulkWriter::class);
+class_alias(BulkWriter::class, WriteBatch::class);
+
+// TODO: check following with the deprecation notice:
+// 1. While using `WriteBatch->flush()`
+// 2. Deprecation notice should not crash existing snippets.
+// 3. Tests should pass without much major code changes.
+@trigger_error('Google\Cloud\Firestore\WriteBatch is deprecated and will be removed in the next major release. Use Google\Cloud\Firestore\BulkWriter instead', E_USER_DEPRECATED);
